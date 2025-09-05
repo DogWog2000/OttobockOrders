@@ -724,8 +724,81 @@ This is an automated notification from the Order Tracking System.
                                             {currentOrder.status}
                                         </span>
                                     </div>
-                                    {currentOrder.prNumber && <div><span className="font-medium">PR Number:</span> {currentOrder.prNumber}</div>}
-                                    <div><span className="font-medium">PO Number:</span> {currentOrder.poNumber || 'Not yet assigned'}</div>
+                                    
+                                    <div className="flex items-center gap-2">
+                                        <span className="font-medium">PR Number:</span>
+                                        {editingPR ? (
+                                            <div className="flex items-center gap-2">
+                                                <input 
+                                                    type="text"
+                                                    value={prNumber}
+                                                    onChange={(e) => setPrNumber(e.target.value)}
+                                                    className="px-2 py-1 border rounded text-sm"
+                                                    placeholder="Enter PR number"
+                                                />
+                                                <button 
+                                                    onClick={savePrNumber}
+                                                    className="px-2 py-1 bg-green-500 text-white rounded text-xs hover:bg-green-600"
+                                                >
+                                                    Save
+                                                </button>
+                                                <button 
+                                                    onClick={cancelPrEdit}
+                                                    className="px-2 py-1 bg-gray-500 text-white rounded text-xs hover:bg-gray-600"
+                                                >
+                                                    Cancel
+                                                </button>
+                                            </div>
+                                        ) : (
+                                            <div className="flex items-center gap-2">
+                                                <span>{currentOrder.prNumber || 'Not assigned'}</span>
+                                                <button 
+                                                    onClick={() => setEditingPR(true)}
+                                                    className="px-2 py-1 bg-blue-500 text-white rounded text-xs hover:bg-blue-600"
+                                                >
+                                                    Edit
+                                                </button>
+                                            </div>
+                                        )}
+                                    </div>
+                                    
+                                    <div className="flex items-center gap-2">
+                                        <span className="font-medium">PO Number:</span>
+                                        {editingPO ? (
+                                            <div className="flex items-center gap-2">
+                                                <input 
+                                                    type="text"
+                                                    value={poNumber}
+                                                    onChange={(e) => setPoNumber(e.target.value)}
+                                                    className="px-2 py-1 border rounded text-sm"
+                                                    placeholder="Enter PO number"
+                                                />
+                                                <button 
+                                                    onClick={savePoNumber}
+                                                    className="px-2 py-1 bg-green-500 text-white rounded text-xs hover:bg-green-600"
+                                                >
+                                                    Save
+                                                </button>
+                                                <button 
+                                                    onClick={cancelPoEdit}
+                                                    className="px-2 py-1 bg-gray-500 text-white rounded text-xs hover:bg-gray-600"
+                                                >
+                                                    Cancel
+                                                </button>
+                                            </div>
+                                        ) : (
+                                            <div className="flex items-center gap-2">
+                                                <span>{currentOrder.poNumber || 'Not yet assigned'}</span>
+                                                <button 
+                                                    onClick={() => setEditingPO(true)}
+                                                    className="px-2 py-1 bg-blue-500 text-white rounded text-xs hover:bg-blue-600"
+                                                >
+                                                    Edit
+                                                </button>
+                                            </div>
+                                        )}
+                                    </div>
+                                    
                                     <div><span className="font-medium">Total Amount:</span> ${currentOrder.totalAmount.toLocaleString()}</div>
                                 </div>
                             </div>
@@ -772,6 +845,11 @@ This is an automated notification from the Order Tracking System.
                                     <span className="text-sm text-gray-600">
                                         {selectedItems.size} of {currentOrder.lineItems.length} items selected
                                     </span>
+                                    {selectedItems.size > 0 && (
+                                        <span className="text-sm text-blue-600">
+                                            • Email will include selected items only
+                                        </span>
+                                    )}
                                 </div>
                                 
                                 <div className="flex items-center gap-3">
@@ -794,6 +872,9 @@ This is an automated notification from the Order Tracking System.
                                         Update Selected ({selectedItems.size})
                                     </button>
                                 </div>
+                                <p className="text-xs text-gray-500 mt-2">
+                                    Note: Status updates no longer send automatic emails. Use the "Send Email Update" button above to notify stakeholders.
+                                </p>
                             </div>
 
                             <div className="space-y-3">
