@@ -853,15 +853,25 @@ This is an automated notification from the Order Tracking System.
 
             return (
                 <div className="p-6 max-w-7xl mx-auto min-h-screen">
-                    <div className="flex justify-between items-center mb-6">
-                        <h1 className="text-3xl font-bold text-gray-900">Order Tracking System</h1>
-                        <button 
-                            onClick={() => setShowNewOrderForm(true)}
-                            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center gap-2"
-                        >
-                            <Plus />
-                            New Order
-                        </button>
+                    {/* Header with Ottobock Logo */}
+                    <div className="bg-white rounded-lg shadow mb-6 p-4">
+                        <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-4">
+                                <img 
+                                    src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjQwIiB2aWV3Qm94PSIwIDAgMTIwIDQwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPg0KPHJlY3Qgd2lkdGg9IjEyMCIgaGVpZ2h0PSI0MCIgZmlsbD0id2hpdGUiLz4NCjx0ZXh0IHg9IjEwIiB5PSIyNSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjIwIiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0iIzAwMzM4NCI+b3R0b2JvY2s8L3RleHQ+DQo8L3N2Zz4="
+                                    alt="Ottobock Logo" 
+                                    className="h-8"
+                                />
+                                <div className="text-2xl font-bold text-gray-900">Order Tracking System</div>
+                            </div>
+                            <button 
+                                onClick={() => setShowNewOrderForm(true)}
+                                className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center gap-2"
+                            >
+                                <Plus />
+                                New Order
+                            </button>
+                        </div>
                     </div>
 
                     <div className="bg-white p-4 rounded-lg shadow mb-6">
