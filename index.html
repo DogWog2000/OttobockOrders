@@ -94,7 +94,7 @@
                     lineItems: [
                         {
                             id: 'LI-001',
-                            description: 'Dell Laptops - Business Series',
+                            Material: 'Dell Laptops - Business Series',
                             quantity: 10,
                             costCenter: 'CC-001-SALES',
                             totalPrice: 12000,
@@ -111,7 +111,7 @@
                         },
                         {
                             id: 'LI-002',
-                            description: 'Office Chairs - Ergonomic',
+                            Material: 'Office Chairs - Ergonomic',
                             quantity: 15,
                             costCenter: 'CC-002-ADMIN',
                             totalPrice: 4500,
@@ -127,7 +127,7 @@
                         },
                         {
                             id: 'LI-003',
-                            description: 'Standing Desks',
+                            Material: 'Standing Desks',
                             quantity: 8,
                             costCenter: 'CC-001-SALES',
                             totalPrice: 4800,
@@ -155,7 +155,7 @@
                     lineItems: [
                         {
                             id: 'LI-004',
-                            description: 'Marketing Software Licenses',
+                            Material: 'Marketing Software Licenses',
                             quantity: 5,
                             costCenter: 'CC-003-MASC',
                             totalPrice: 10000,
@@ -168,7 +168,7 @@
                         },
                         {
                             id: 'LI-005',
-                            description: 'Trade Show Banners',
+                            Material: 'Trade Show Banners',
                             quantity: 3,
                             costCenter: 'CC-003-MASC',
                             totalPrice: 1500,
@@ -195,7 +195,7 @@
                     lineItems: [
                         {
                             id: 'LI-006',
-                            description: 'Warehouse Management System',
+                            Material: 'Warehouse Management System',
                             quantity: 1,
                             costCenter: 'CC-004-SALES',
                             totalPrice: 35000,
@@ -207,7 +207,7 @@
                         },
                         {
                             id: 'LI-007',
-                            description: 'Barcode Scanners',
+                            Material: 'Barcode Scanners',
                             quantity: 20,
                             costCenter: 'CC-004-SALES',
                             totalPrice: 5000,
@@ -240,7 +240,7 @@
 
             // Email notification function
             const sendStatusChangeEmail = (order, item, oldStatus, newStatus, updatedBy) => {
-                const subject = `Order Status Update - ${order.id} - ${item.description}`;
+                const subject = `Order Status Update - ${order.id} - ${item.Material}`;
                 const body = `
 Order Status Update Notification
 
@@ -295,7 +295,7 @@ This is an automated notification from the Order Tracking System.
                         order.submittedBy.toLowerCase().includes(searchTerm.toLowerCase()) ||
                         order.poNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
                         order.lineItems.some(item => 
-                            item.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                            item.Material.toLowerCase().includes(searchTerm.toLowerCase()) ||
                             item.costCenter.toLowerCase().includes(searchTerm.toLowerCase()) ||
                             item.designatedTo.toLowerCase().includes(searchTerm.toLowerCase())
                         )
@@ -338,13 +338,13 @@ This is an automated notification from the Order Tracking System.
                     department: 'Sales',
                     submittedBy: '',
                     capexNumber: '',
-                    lineItems: [{ description: '', quantity: '', totalPrice: '', costCenter: '', designatedTo: '' }]
+                    lineItems: [{ Material: '', quantity: '', totalPrice: '', costCenter: '', designatedTo: '' }]
                 });
 
                 const addLineItem = () => {
                     setNewOrder(prev => ({
                         ...prev,
-                        lineItems: [...prev.lineItems, { description: '', quantity: '', totalPrice: '', costCenter: '', designatedTo: '' }]
+                        lineItems: [...prev.lineItems, { Material: '', quantity: '', totalPrice: '', costCenter: '', designatedTo: '' }]
                     }));
                 };
 
@@ -366,7 +366,7 @@ This is an automated notification from the Order Tracking System.
                     
                     const processedLineItems = newOrder.lineItems.map((item, index) => ({
                         id: `LI-${String(orders.length * 10 + index + 1).padStart(3, '0')}`,
-                        description: item.description,
+                        Material: item.Material,
                         quantity: parseInt(item.quantity),
                         totalPrice: parseFloat(item.totalPrice),
                         costCenter: item.costCenter,
@@ -396,7 +396,7 @@ This is an automated notification from the Order Tracking System.
                         department: 'Sales',
                         submittedBy: '',
                         capexNumber: '',
-                        lineItems: [{ description: '', quantity: '', totalPrice: '', costCenter: '', designatedTo: '' }]
+                        lineItems: [{ Material: '', quantity: '', totalPrice: '', costCenter: '', designatedTo: '' }]
                     });
                 };
 
@@ -445,13 +445,13 @@ This is an automated notification from the Order Tracking System.
                             {newOrder.lineItems.map((item, index) => (
                                 <div key={index} className="grid grid-cols-5 gap-3 mb-3 p-3 border rounded-lg">
                                     <div>
-                                        <label className="block text-sm font-medium mb-1">Description</label>
+                                        <label className="block text-sm font-medium mb-1">Material</label>
                                         <input 
                                             type="text"
-                                            value={item.description}
-                                            onChange={(e) => updateLineItem(index, 'description', e.target.value)}
+                                            value={item.Material}
+                                            onChange={(e) => updateLineItem(index, 'Material', e.target.value)}
                                             className="w-full p-2 border rounded"
-                                            placeholder="Item description"
+                                            placeholder="Item Material"
                                         />
                                     </div>
                                     <div>
@@ -772,7 +772,7 @@ This is an automated notification from the Order Tracking System.
                                                     <div className="flex-1">
                                                         <div className="flex items-center gap-2 mb-2">
                                                             <span className="font-mono text-sm text-gray-500">{item.id}</span>
-                                                            <span className="font-medium">{item.description}</span>
+                                                            <span className="font-medium">{item.Material}</span>
                                                         </div>
                                                         <div className="text-sm text-gray-600 space-y-1">
                                                             <div>Quantity: {item.quantity} | Total: ${item.totalPrice.toLocaleString()}</div>
@@ -964,7 +964,7 @@ This is an automated notification from the Order Tracking System.
                                                 <div className="text-xs text-gray-500 space-y-2">
                                                     {order.lineItems.slice(0, 2).map((item) => (
                                                         <div key={item.id} className="flex items-center justify-between">
-                                                            <span>• {item.description} ({item.quantity}x)</span>
+                                                            <span>• {item.Material} ({item.quantity}x)</span>
                                                             <div className="flex items-center gap-2">
                                                                 <div className="w-12 h-2 bg-gray-200 rounded-full overflow-hidden">
                                                                     <div 
@@ -990,7 +990,7 @@ This is an automated notification from the Order Tracking System.
                                                                                         getStatusColor(item.status).includes('yellow') ? '#eab308' :
                                                                                         getStatusColor(item.status).includes('indigo') ? '#6366f1' :
                                                                                         getStatusColor(item.status).includes('green') ? '#22c55e' : '#6b7280'
-                                                                    }} title={`${item.description}: ${Math.round(getStatusPercentage(item.status))}%`}></div>
+                                                                    }} title={`${item.Material}: ${Math.round(getStatusPercentage(item.status))}%`}></div>
                                                                 ))}
                                                             </div>
                                                         </div>
