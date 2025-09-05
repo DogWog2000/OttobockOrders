@@ -1118,6 +1118,11 @@ This is an automated notification from the Order Tracking System.
                                                     {order.prNumber && <div className="text-sm text-gray-500">PR: {order.prNumber}</div>}
                                                     <div className="text-sm text-gray-500">By: {order.submittedBy}</div>
                                                     <div className="text-sm text-gray-500">{order.submittedDate}</div>
+                                                    {order.description && (
+                                                        <div className="text-sm text-blue-600 mt-1" title={order.description}>
+                                                            {order.description.length > 50 ? `${order.description.substring(0, 50)}...` : order.description}
+                                                        </div>
+                                                    )}
                                                     {order.poNumber && (
                                                         <div className="text-sm text-blue-600">PO: {order.poNumber}</div>
                                                     )}
