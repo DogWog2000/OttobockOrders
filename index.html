@@ -772,6 +772,11 @@ This is an automated notification from the Order Tracking System.
                                     <span className="text-sm text-gray-600">
                                         {selectedItems.size} of {currentOrder.lineItems.length} items selected
                                     </span>
+                                    {selectedItems.size > 0 && (
+                                        <span className="text-sm text-blue-600">
+                                            • Email will include selected items only
+                                        </span>
+                                    )}
                                 </div>
                                 
                                 <div className="flex items-center gap-3">
@@ -794,6 +799,9 @@ This is an automated notification from the Order Tracking System.
                                         Update Selected ({selectedItems.size})
                                     </button>
                                 </div>
+                                <p className="text-xs text-gray-500 mt-2">
+                                    Note: Status updates no longer send automatic emails. Use the "Send Email Update" button above to notify stakeholders.
+                                </p>
                             </div>
 
                             <div className="space-y-3">
