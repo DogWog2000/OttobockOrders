@@ -572,8 +572,50 @@ This is an automated notification from the Order Tracking System.
                 const [selectedItems, setSelectedItems] = useState(new Set());
                 const [targetStatus, setTargetStatus] = useState('');
                 const [expandedHistory, setExpandedHistory] = useState(new Set());
+                const [editingPR, setEditingPR] = useState(false);
+                const [editingPO, setEditingPO] = useState(false);
+                const [prNumber, setPrNumber] = useState('');
+                const [poNumber, setPoNumber] = useState('');
 
                 const currentOrder = orders.find(ord => ord.id === order.id) || order;
+
+                // Initialize editing state values
+                useEffect(() => {
+                    setPrNumber(currentOrder.prNumber || '');
+                    setPoNumber(currentOrder.poNumber || '');
+                }, [currentOrder]);
+
+                const savePrNumber = () => {
+                    setOrders(prevOrders => 
+                        prevOrders.map(ord => 
+                            ord.id === order.id 
+                                ? { ...ord, prNumber: prNumber }
+                                : ord
+                        )
+                    );
+                    setEditingPR(false);
+                };
+
+                const savePoNumber = () => {
+                    setOrders(prevOrders => 
+                        prevOrders.map(ord => 
+                            ord.id === order.id 
+                                ? { ...ord, poNumber: poNumber }
+                                : ord
+                        )
+                    );
+                    setEditingPO(false);
+                };
+
+                const cancelPrEdit = () => {
+                    setPrNumber(currentOrder.prNumber || '');
+                    setEditingPR(false);
+                };
+
+                const cancelPoEdit = () => {
+                    setPoNumber(currentOrder.poNumber || '');
+                    setEditingPO(false);
+                };
 
                 const formatDate = (timestamp) => {
                     const date = new Date(timestamp);
@@ -845,11 +887,6 @@ This is an automated notification from the Order Tracking System.
                                     <span className="text-sm text-gray-600">
                                         {selectedItems.size} of {currentOrder.lineItems.length} items selected
                                     </span>
-                                    {selectedItems.size > 0 && (
-                                        <span className="text-sm text-blue-600">
-                                            • Email will include selected items only
-                                        </span>
-                                    )}
                                 </div>
                                 
                                 <div className="flex items-center gap-3">
@@ -872,9 +909,6 @@ This is an automated notification from the Order Tracking System.
                                         Update Selected ({selectedItems.size})
                                     </button>
                                 </div>
-                                <p className="text-xs text-gray-500 mt-2">
-                                    Note: Status updates no longer send automatic emails. Use the "Send Email Update" button above to notify stakeholders.
-                                </p>
                             </div>
 
                             <div className="space-y-3">
