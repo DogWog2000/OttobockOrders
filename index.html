@@ -571,6 +571,8 @@
 
                     const currentUser = 'Current User';
                     const timestamp = new Date().toISOString();
+                    const currentOrder = orders.find(ord => ord.id === order.id) || order;
+                    const item = currentOrder.lineItems.find(li => li.id === itemId);
 
                     setOrders(prevOrders => 
                         prevOrders.map(ord => 
@@ -593,6 +595,11 @@
                                 : ord
                         )
                     );
+
+                    // Send email notification
+                    if (item) {
+                        sendStatusChangeEmail(currentOrder, item, currentStatus, nextStatus.key, currentUser);
+                    }
                 };
 
                 return (
