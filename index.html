@@ -315,7 +315,7 @@
                         <div className="bg-white rounded-lg p-6 w-full max-w-6xl max-h-[90vh] overflow-y-auto">
                             <h2 className="text-xl font-bold mb-4">Create New Order</h2>
                             
-                            <div className="grid grid-cols-2 gap-4 mb-6">
+                            <div className="grid grid-cols-3 gap-4 mb-6">
                                 <div>
                                     <label className="block text-sm font-medium mb-2">Department</label>
                                     <select 
@@ -336,6 +336,16 @@
                                         onChange={(e) => setNewOrder(prev => ({ ...prev, submittedBy: e.target.value }))}
                                         className="w-full p-2 border rounded-lg"
                                         placeholder="Enter your name"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-medium mb-2">CapEx Number</label>
+                                    <input 
+                                        type="text"
+                                        value={newOrder.capexNumber}
+                                        onChange={(e) => setNewOrder(prev => ({ ...prev, capexNumber: e.target.value }))}
+                                        className="w-full p-2 border rounded-lg"
+                                        placeholder="Enter CapEx number (optional)"
                                     />
                                 </div>
                             </div>
